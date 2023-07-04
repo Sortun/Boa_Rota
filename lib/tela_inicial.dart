@@ -1,6 +1,6 @@
 import 'package:find_transportes/tela_cadastro.dart';
 import 'package:flutter/material.dart';
-import 'widget.dart';
+import 'package:find_transportes/widget.dart';
 
 void main() {
   runApp(const Inicial());
@@ -11,8 +11,11 @@ class Inicial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(title: 'Flutter', home: MyHomePage(), 
-    debugShowCheckedModeBanner: false,);
+    return const MaterialApp(
+      title: 'Flutter',
+      home: MyHomePage(),
+      debugShowCheckedModeBanner: false,
+    );
   }
 }
 
@@ -30,59 +33,41 @@ class MyHomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              
               SizedBox(
                 width: 200, height: 200,
                 child: Image.asset(
                     "assets/logoteste.png"), //add logo neste path (mudar na linha 57 da punspec.yaml)
               ),
-
-              const Center(
-                  child: Text(
-                'Nome do App', //Mudar o texto
-                style: TextStyle(
-                  fontSize: 20, 
-                  fontWeight: FontWeight.bold, 
-                  color: Color.fromARGB(141, 0, 0, 0)))),
-
+              Text('Nome do App', //Mudar o texto
+                style: TituloInicial,
+                textAlign: TextAlign.center,),
               const SizedBox(height: 10),
-              const Center(
-                  child: Text(
-               "A informação que você precisa para o seu dia a dia.", 
-                style: TextStyle(
-                  fontSize: 14, 
-                  color: Color.fromARGB(141, 0, 0, 0)))),
-
+                  Text("A informação que você precisa para o seu dia a dia.",
+                      style: SubtituloInicial,
+                      textAlign: TextAlign.center),
               const SizedBox(height: 200),
-
-              SizedBox(child: 
-              Column(children: [
+              SizedBox(
+                  child: Column(children: [
                 ElevatedButton(
-                    child: Text('Entrar'),
-                    style: BotaoInicial, 
-                    onPressed: () {},),
-
+                  style: BotaoInicial,
+                  onPressed: () {},
+                  child: const Text('Entrar'),
+                ),
                 const SizedBox(height: 20),
-
-                const Center(
-                  child: Text(
-                'Ainda não se Cadastrou?', 
-                style: TextStyle(
-                  fontSize: 14, 
+                Text(
+                  'Ainda não se Cadastrou?',
+                  style: SubtituloInicial,
+                  textAlign: TextAlign.center,),
                   
-                  color: Color.fromARGB(146, 0, 0, 0)),
-              )),
-
-              const SizedBox(height: 10),
-
+                const SizedBox(height: 10),
                 ElevatedButton(
-                    child: Text ('Cadastrar'),
-                    style: BotaoInicial, 
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const Cadastro()) 
-                      );
-                    },)
+                  style: BotaoInicial,
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const Cadastro()));
+                  },
+                  child: const Text('Cadastrar'),
+                )
               ]))
             ],
           ))),
