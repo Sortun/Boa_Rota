@@ -27,7 +27,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: FundoApp,
       body: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(30),
           child: Center(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

@@ -19,9 +19,19 @@ ButtonStyle BotaoInicial = ElevatedButton.styleFrom(
 TextStyle TituloInicial = const TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.bold,
-  color:  Color.fromARGB(141, 0, 0, 0),);
+  color:  Color.fromARGB(86, 0, 0, 0),);
 
-  TextStyle SubtituloInicial = const TextStyle(
+// ignore: non_constant_identifier_names
+TextStyle SubtituloInicial = const TextStyle(
    fontSize: 14, 
    color: Color.fromARGB(141, 0, 0, 0));
 
+// ignore: non_constant_identifier_names
+InputDecoration TextfildCadastro = const InputDecoration(
+  labelStyle: TextStyle(color: Color.fromARGB(135, 0, 0, 0) ),
+  enabledBorder: UnderlineInputBorder(
+  borderSide: BorderSide(color:  Color.fromARGB(234, 118, 238, 188))),
+  focusedBorder: UnderlineInputBorder(
+  borderSide: BorderSide(color: Color.fromARGB(234, 118, 238, 188))),
+  labelText: "", 
+);
