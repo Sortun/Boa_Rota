@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 // ignore: non_constant_identifier_names
 Color FundoApp = const Color.fromARGB(234, 255, 255, 255);
+// ignore: non_constant_identifier_names
+Color Corpadrao =const Color.fromARGB(234, 118, 238, 188);
+
 
 // ignore: non_constant_identifier_names
 ButtonStyle BotaoInicial = ElevatedButton.styleFrom(
