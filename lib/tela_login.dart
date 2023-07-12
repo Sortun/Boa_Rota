@@ -66,7 +66,7 @@ class _LoginState extends State<Login> {
                 const SizedBox(height: 5),
                 Text("A informação que você precisa para o seu dia a dia.",
                     style: SubtituloInicial, textAlign: TextAlign.center),
-                const SizedBox(height: 30),
+                const SizedBox(height: 40),
                 const Text("Login",
                     style: TextStyle(
                         color: Color.fromARGB(255, 123, 122, 122),
@@ -78,8 +78,10 @@ class _LoginState extends State<Login> {
                     cursorColor: const Color.fromARGB(234, 118, 238, 188),
                     keyboardType: TextInputType.text,
                     maxLength: 30,
-                    decoration:
-                        TextfildCadastro.copyWith(labelText: "Usuário")),
+                    decoration: TextfildCadastro.copyWith(
+                      labelText: "Usuário",
+                      counterText: '',
+                    )),
                 TextFormField(
                     controller: txtSenha,
                     maxLength: 10,
@@ -87,17 +89,23 @@ class _LoginState extends State<Login> {
                     obscureText: Senhavisivel,
                     cursorColor: const Color.fromARGB(234, 118, 238, 188),
                     decoration: TextfildCadastro.copyWith(
+                      counterText: '',
                       labelText: "Senha",
                       suffixIcon: GestureDetector(
-                        child: Icon(Senhavisivel == true ? Icons.visibility_off : Icons.visibility, color: Colors.grey,),
+                        child: Icon(
+                          Senhavisivel == true
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Colors.grey,
+                        ),
                         onTap: () {
                           setState(() {
                             Senhavisivel = !Senhavisivel;
-                            
                           });
                         },
                       ),
                     )),
+                    const SizedBox(height: 20),
                 Row(children: [
                   Checkbox(
                     value: continuarLogado,
@@ -127,7 +135,7 @@ class _LoginState extends State<Login> {
                     ),
                   )
                 ]),
-                const SizedBox(height: 30),
+                const SizedBox(height: 70),
                 ElevatedButton(
                     style: BotaoInicial,
                     onPressed: () {},

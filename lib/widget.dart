@@ -30,7 +30,6 @@ TextStyle SubtituloInicial =
 
 // ignore: non_constant_identifier_names
 InputDecoration TextfildCadastro = const InputDecoration(
-  counterText: '',
   labelStyle: TextStyle(color: Color.fromARGB(135, 0, 0, 0)),
   enabledBorder: UnderlineInputBorder(
       borderSide: BorderSide(color: Color.fromARGB(234, 118, 238, 188))),

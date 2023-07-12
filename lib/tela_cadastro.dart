@@ -89,11 +89,15 @@ class _CadastroState extends State<Cadastro> {
                     decoration: TextfildCadastro.copyWith(
                       labelText: "Senha",
                       suffixIcon: GestureDetector(
-                        child: Icon(Senhavisivel == true ? Icons.visibility_off : Icons.visibility, color: Colors.grey,),
+                        child: Icon(
+                          Senhavisivel == true
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Colors.grey,
+                        ),
                         onTap: () {
                           setState(() {
                             Senhavisivel = !Senhavisivel;
-                            
                           });
                         },
                       ),
