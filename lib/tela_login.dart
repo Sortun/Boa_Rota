@@ -78,7 +78,7 @@ class _LoginState extends State<Login> {
                     keyboardType: TextInputType.emailAddress,
                     maxLength: 35,
                     decoration: TextfildCadastro.copyWith(
-                      labelText: "Email",
+                      labelText: "E-mail",
                       counterText: '',
                     )),
                 TextFormField(

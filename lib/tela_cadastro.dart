@@ -79,7 +79,7 @@ class _CadastroState extends State<Cadastro> {
                     cursorColor: const Color.fromARGB(234, 118, 238, 188),
                     maxLength: 35,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: TextfildCadastro.copyWith(labelText: "Email")),
+                    decoration: TextfildCadastro.copyWith(labelText: "E-mail")),
                 TextFormField(
                     controller: txtSenha,
                     maxLength: 10,
