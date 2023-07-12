@@ -3,7 +3,6 @@ import 'package:find_transportes/tela_inicial.dart';
 import 'package:find_transportes/widget.dart';
 import 'package:flutter/material.dart';
 
-TextEditingController txtNome = TextEditingController();
 TextEditingController txtEmail = TextEditingController();
 TextEditingController txtSenha = TextEditingController();
 
@@ -74,12 +73,12 @@ class _LoginState extends State<Login> {
                     textAlign: TextAlign.center),
                 const SizedBox(height: 10),
                 TextField(
-                    controller: txtNome,
+                    controller: txtEmail,
                     cursorColor: const Color.fromARGB(234, 118, 238, 188),
-                    keyboardType: TextInputType.text,
-                    maxLength: 30,
+                    keyboardType: TextInputType.emailAddress,
+                    maxLength: 35,
                     decoration: TextfildCadastro.copyWith(
-                      labelText: "Usuário",
+                      labelText: "Email",
                       counterText: '',
                     )),
                 TextFormField(
