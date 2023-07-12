@@ -1,4 +1,5 @@
-import 'package:find_transportes/tela_login.dart';
+import 'package:find_transportes/tela_cadastro.dart';
+import 'package:find_transportes/tela_inicial.dart';
 import 'package:find_transportes/widget.dart';
 import 'package:flutter/material.dart';
 
@@ -8,22 +9,23 @@ TextEditingController txtSenha = TextEditingController();
 
 void main() {
   runApp(const MaterialApp(
-    title: 'Cadastro App',
-    home: Cadastro(),
+    title: 'Login App',
+    home: Login(),
     debugShowCheckedModeBanner: false,
   ));
 }
 
-class Cadastro extends StatefulWidget {
-  const Cadastro({Key? key}) : super(key: key);
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
   @override
   // ignore: library_private_types_in_public_api
-  _CadastroState createState() => _CadastroState();
+  _LoginState createState() => _LoginState();
 }
 
-class _CadastroState extends State<Cadastro> {
-  bool Aceitotermos = false;
+class _LoginState extends State<Login> {
+  bool continuarLogado = false;
   bool Senhavisivel = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +36,10 @@ class _CadastroState extends State<Cadastro> {
               child: SafeArea(
                   child: GestureDetector(
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.pop(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Inicial()));
                       },
                       child: const Padding(
                           padding: EdgeInsets.all(16.0),
@@ -47,7 +52,7 @@ class _CadastroState extends State<Cadastro> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
                 SizedBox(
                   height: 200,
                   child: Image.asset(
@@ -61,25 +66,20 @@ class _CadastroState extends State<Cadastro> {
                 const SizedBox(height: 5),
                 Text("A informação que você precisa para o seu dia a dia.",
                     style: SubtituloInicial, textAlign: TextAlign.center),
-                const SizedBox(height: 20),
-                const Text("Cadastro",
+                const SizedBox(height: 30),
+                const Text("Login",
                     style: TextStyle(
                         color: Color.fromARGB(255, 123, 122, 122),
                         fontSize: 18),
                     textAlign: TextAlign.center),
-                const SizedBox(height: 5),
+                const SizedBox(height: 10),
                 TextField(
                     controller: txtNome,
                     cursorColor: const Color.fromARGB(234, 118, 238, 188),
                     keyboardType: TextInputType.text,
                     maxLength: 30,
-                    decoration: TextfildCadastro.copyWith(labelText: "Nome")),
-                TextField(
-                    controller: txtEmail,
-                    cursorColor: const Color.fromARGB(234, 118, 238, 188),
-                    maxLength: 35,
-                    keyboardType: TextInputType.text,
-                    decoration: TextfildCadastro.copyWith(labelText: "Email")),
+                    decoration:
+                        TextfildCadastro.copyWith(labelText: "Usuário")),
                 TextFormField(
                     controller: txtSenha,
                     maxLength: 10,
@@ -100,10 +100,10 @@ class _CadastroState extends State<Cadastro> {
                     )),
                 Row(children: [
                   Checkbox(
-                    value: Aceitotermos,
+                    value: continuarLogado,
                     onChanged: (bool? checked) {
                       setState(() {
-                        Aceitotermos = checked ?? false;
+                        continuarLogado = checked ?? false;
                       });
                     },
                     activeColor: Corpadrao,
@@ -112,7 +112,7 @@ class _CadastroState extends State<Cadastro> {
                     ),
                   ),
                   const Text(
-                    "Eu Aceito os Termos de Uso. ",
+                    "Manter-se conectado?",
                     style: TextStyle(fontSize: 12),
                   ),
                   GestureDetector(
@@ -122,29 +122,30 @@ class _CadastroState extends State<Cadastro> {
                       // builder: (context) => const Temos()));
                     },
                     child: const Text(
-                      "Revisar Termos",
+                      "",
                       style: TextStyle(fontSize: 12, color: Colors.blue),
                     ),
                   )
                 ]),
+                const SizedBox(height: 30),
                 ElevatedButton(
                     style: BotaoInicial,
                     onPressed: () {},
-                    child: const Text("Cadastrar")),
+                    child: const Text("Entrar")),
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    const Text("ja possui uma Conta? ",
+                    const Text("Não possuí uma conta? ",
                         textAlign: TextAlign.center),
                     GestureDetector(
                       onTap: () {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Login()));
+                                builder: (context) => const Cadastro()));
                       },
                       child: const Text(
-                        " Entrar",
+                        "Cadastre-se",
                         style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,

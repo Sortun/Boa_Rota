@@ -1,6 +1,7 @@
 import 'package:find_transportes/tela_cadastro.dart';
 import 'package:flutter/material.dart';
 import 'package:find_transportes/widget.dart';
+import 'package:find_transportes/tela_login.dart';
 
 void main() {
   runApp(const Inicial());
@@ -38,27 +39,31 @@ class MyHomePage extends StatelessWidget {
                 child: Image.asset(
                     "assets/logoteste.png"), //add logo neste path (mudar na linha 57 da punspec.yaml)
               ),
-              Text('Nome do App', //Mudar o texto
+              Text(
+                'Nome do App', //Mudar o texto
                 style: TituloInicial,
-                textAlign: TextAlign.center,),
+                textAlign: TextAlign.center,
+              ),
               const SizedBox(height: 10),
-                  Text("A informação que você precisa para o seu dia a dia.",
-                      style: SubtituloInicial,
-                      textAlign: TextAlign.center),
+              Text("A informação que você precisa para o seu dia a dia.",
+                  style: SubtituloInicial, textAlign: TextAlign.center),
               const SizedBox(height: 200),
               SizedBox(
                   child: Column(children: [
                 ElevatedButton(
                   style: BotaoInicial,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => const Login()));
+                  },
                   child: const Text('Entrar'),
                 ),
                 const SizedBox(height: 20),
                 Text(
                   'Ainda não se Cadastrou?',
                   style: SubtituloInicial,
-                  textAlign: TextAlign.center,),
-                  
+                  textAlign: TextAlign.center,
+                ),
                 const SizedBox(height: 10),
                 ElevatedButton(
                   style: BotaoInicial,
