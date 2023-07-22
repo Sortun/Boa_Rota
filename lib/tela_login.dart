@@ -1,3 +1,4 @@
+import 'package:find_transportes/mapa.dart';
 import 'package:find_transportes/tela_cadastro.dart';
 import 'package:find_transportes/tela_inicial.dart';
 import 'package:find_transportes/widget.dart';
@@ -64,7 +65,7 @@ class _LoginState extends State<Login> {
                 ),
                 const SizedBox(height: 5),
                 Text("A informação que você precisa para o seu dia a dia.",
-                    style: SubtituloInicial, textAlign: TextAlign.center),
+                    style: textpadrao, textAlign: TextAlign.center),
                 const SizedBox(height: 40),
                 const Text("Login",
                     style: TextStyle(
@@ -137,7 +138,10 @@ class _LoginState extends State<Login> {
                 const SizedBox(height: 70),
                 ElevatedButton(
                     style: BotaoInicial,
-                    onPressed: () {},
+                    onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const Mapa()));
+                    },
                     child: const Text("Entrar")),
                 const SizedBox(height: 10),
                 Row(

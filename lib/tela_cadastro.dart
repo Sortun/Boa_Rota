@@ -60,7 +60,7 @@ class _CadastroState extends State<Cadastro> {
                 ),
                 const SizedBox(height: 5),
                 Text("A informação que você precisa para o seu dia a dia.",
-                    style: SubtituloInicial, textAlign: TextAlign.center),
+                    style: textpadrao, textAlign: TextAlign.center),
                 const SizedBox(height: 20),
                 const Text("Cadastro",
                     style: TextStyle(

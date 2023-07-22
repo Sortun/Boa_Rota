@@ -18,15 +18,15 @@ ButtonStyle BotaoInicial = ElevatedButton.styleFrom(
     ));
 
 // ignore: non_constant_identifier_names
+TextStyle textpadrao =
+    const TextStyle(fontSize: 14, color: Color.fromARGB(141, 0, 0, 0));
+
+// ignore: non_constant_identifier_names
 TextStyle TituloInicial = const TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.bold,
   color: Color.fromARGB(86, 0, 0, 0),
 );
-
-// ignore: non_constant_identifier_names
-TextStyle SubtituloInicial =
-    const TextStyle(fontSize: 14, color: Color.fromARGB(141, 0, 0, 0));
 
 // ignore: non_constant_identifier_names
 InputDecoration TextfildCadastro = const InputDecoration(
@@ -37,3 +37,13 @@ InputDecoration TextfildCadastro = const InputDecoration(
       borderSide: BorderSide(color: Color.fromARGB(234, 118, 238, 188))),
   labelText: "",
 );
+
+// ignore: non_constant_identifier_names
+InputDecoration CampoBusca = const InputDecoration(
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.all(Radius.circular(20)),
+    ),
+    prefixIcon: Icon(
+      Icons.search,
+    ),
+    hintText: " Buscar Ponto");

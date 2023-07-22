@@ -46,7 +46,7 @@ class MyHomePage extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text("A informação que você precisa para o seu dia a dia.",
-                  style: SubtituloInicial, textAlign: TextAlign.center),
+                  style: textpadrao, textAlign: TextAlign.center),
               const SizedBox(height: 200),
               SizedBox(
                   child: Column(children: [
@@ -61,7 +61,7 @@ class MyHomePage extends StatelessWidget {
                 const SizedBox(height: 20),
                 Text(
                   'Ainda não se Cadastrou?',
-                  style: SubtituloInicial,
+                  style: textpadrao,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 10),
