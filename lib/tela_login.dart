@@ -24,6 +24,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool continuarLogado = false;
+  // ignore: non_constant_identifier_names
   bool Senhavisivel = true;
 
   @override

@@ -22,7 +22,9 @@ class Cadastro extends StatefulWidget {
 }
 
 class _CadastroState extends State<Cadastro> {
+  // ignore: non_constant_identifier_names
   bool Aceitotermos = false;
+  // ignore: non_constant_identifier_names
   bool Senhavisivel = true;
   @override
   Widget build(BuildContext context) {
