@@ -1,4 +1,4 @@
-import 'package:find_transportes/mapa.dart';
+import 'package:find_transportes/Mapa/mapa.dart';
 import 'package:find_transportes/tela_cadastro.dart';
 import 'package:find_transportes/tela_inicial.dart';
 import 'package:find_transportes/widget.dart';

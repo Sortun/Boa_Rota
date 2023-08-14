@@ -19,7 +19,8 @@ class App extends StatelessWidget {
     return const MaterialApp(
       title: 'Aplicativo de Transporte',
       debugShowCheckedModeBanner: false,
-      home: Inicial(), // define a tela inicial do projeto
+      // define a tela inicial do projeto
+      home: Inicial(), 
     );
   }
 }

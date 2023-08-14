@@ -1,7 +1,7 @@
 import 'package:find_transportes/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
+import 'package:find_transportes/Mapa/markers_map.dart';
 
 void main() {
   runApp(const Mapa());
@@ -12,43 +12,52 @@ class Mapa extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Flutter',
-      home: MyHomePage(),
-      debugShowCheckedModeBanner: false,
-    );
+    return const MaterialApp(title: 'Flutter', home: MyHomePage(), 
+    debugShowCheckedModeBanner: false,);
   }
 }
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late GoogleMapController mapController; //MAPA
-  double lat = -22.2934452;
-  double long = -48.5653597;
+    //MAPA
+    late GoogleMapController mapController;
 
-  void _onMapCreated(GoogleMapController controller) {
+    final MarkerService _markerService = MarkerService(); 
+
+    final LatLng _center = const LatLng(-22.298293975196824, -48.56007054448128);
+
+
+   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           GoogleMap(
+            //Marcadores:
+            markers: _markerService.getMarkers(),
             onMapCreated: _onMapCreated,
             initialCameraPosition: CameraPosition(
-              target: LatLng(lat, long),
+              target: _center,
               zoom: 15.0,
             ),
-            zoomControlsEnabled: false,
+            //toda vez que houver movimentações na tela os dados serão exibidos no console 
+            onCameraMove: (data){
+              print(data);
+            },
+            //toda vez que houver click na tela os dados serão exibidos no console 
+            onTap: (position){
+              print(position);
+            }
           ),
+      
           Padding(
             padding: const EdgeInsets.all(30),
             child: Row(
@@ -58,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     decoration: CampoBusca
                   ),
                 ),
+
                 IconButton(
                   icon: const Icon(
                     Icons.menu,
@@ -68,6 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
+
+
           Positioned(
             bottom: 0,
             left: 0,
@@ -80,6 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   topRight: Radius.circular(0),
                 ),
               ),
+
               height: 80,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
