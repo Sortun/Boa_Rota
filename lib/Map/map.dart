@@ -1,7 +1,10 @@
 import 'package:find_transportes/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:find_transportes/Mapa/markers_map.dart';
+import 'package:find_transportes/Map/markers_map.dart';
+import 'package:find_transportes/Map/permissions.dart';
+import 'package:geolocator/geolocator.dart';
+
 
 void main() {
   runApp(const Mapa());
@@ -27,14 +30,104 @@ class _MyHomePageState extends State<MyHomePage> {
     //MAPA
     late GoogleMapController mapController;
 
-    final MarkerService _markerService = MarkerService(); 
-
-    final LatLng _center = const LatLng(-22.298293975196824, -48.56007054448128);
-
-
    void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
+
+    final MarkerService _markerService = MarkerService(); 
+     final LatLng _center = const LatLng(-22.298293975196824, -48.56007054448128);
+  
+@override
+  void initState() {
+  super.initState();
+  _getCurrentLocation();
+}
+ //geolocator
+Position _currentPosition = Position(
+ latitude: 0,
+  longitude: 0,
+   accuracy: 0, 
+  timestamp: DateTime.now(),
+ altitude: 0, 
+heading:0 , 
+speed: 0, 
+speedAccuracy: 0
+);
+
+
+
+
+ void _getCurrentLocation() async {
+  try {
+    Position position = await determinePosition(); // Chama a função da validação
+    print("Current position: ${position.latitude}, ${position.longitude}");
+    setState(() {
+      _currentPosition = position;
+    });
+
+    if (mapController != null) {
+      _addCurrentLocationMarker(
+        _currentPosition.latitude,
+        _currentPosition.longitude,
+      );
+    }
+  } catch (e) {
+    print("Error getting current location: $e");
+  }
+}
+
+  void _addCurrentLocationMarker(double lat, double lng) {
+    final currentMarker = Marker(
+      markerId: MarkerId("currentLocation"),
+      position: LatLng(lat, lng),
+      infoWindow: InfoWindow(
+        title: 'Minha Localização Atual',
+      ),
+    );
+
+    setState(() {
+      _markerService.addMarker(currentMarker);
+    });
+  }
+              
+ 
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +141,10 @@ class _MyHomePageState extends State<MyHomePage> {
               target: _center,
               zoom: 15.0,
             ),
+            // disabilita o icone de bulsola que é gerado automaticamente pelo Mapa
+            compassEnabled: false,
+            // disabilita o icone de zoom que é gerado automaticamente pelo Mapa
+            zoomControlsEnabled: false,
             //toda vez que houver movimentações na tela os dados serão exibidos no console 
             onCameraMove: (data){
               print(data);
@@ -58,6 +155,21 @@ class _MyHomePageState extends State<MyHomePage> {
             }
           ),
       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           Padding(
             padding: const EdgeInsets.all(30),
             child: Row(

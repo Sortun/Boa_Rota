@@ -43,8 +43,8 @@ InputDecoration CampoBusca = const InputDecoration(
     border: OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(20)),
     ),
-     fillColor: Colors.white,
-     filled: true,
+    fillColor: Colors.white,
+    filled: true,
     prefixIcon: Icon(
       Icons.search,
     ),

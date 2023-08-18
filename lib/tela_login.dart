@@ -1,4 +1,4 @@
-import 'package:find_transportes/Mapa/mapa.dart';
+import 'package:find_transportes/Map/map.dart';
 import 'package:find_transportes/tela_cadastro.dart';
 import 'package:find_transportes/tela_inicial.dart';
 import 'package:find_transportes/widget.dart';
@@ -60,7 +60,7 @@ class _LoginState extends State<Login> {
                       "assets/logoteste.png"), //add logo neste path (mudar na linha 57 da punspec.yaml)
                 ),
                 Text(
-                  'Nome do App', //Mudar o texto
+                  'Boa Rota',
                   style: TituloInicial,
                   textAlign: TextAlign.center,
                 ),

@@ -56,7 +56,7 @@ class _CadastroState extends State<Cadastro> {
                       "assets/logoteste.png"), //add logo neste path (mudar na linha 57 da punspec.yaml)
                 ),
                 Text(
-                  'Nome do App', //Mudar o texto
+                  'Boa Rota', //Mudar o texto
                   style: TituloInicial,
                   textAlign: TextAlign.center,
                 ),
