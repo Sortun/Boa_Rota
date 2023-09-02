@@ -6,9 +6,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterConfig.loadEnvVariables();
 
-  runApp(
-    const App()
-  );
+  runApp(const App());
 }
 
 class App extends StatelessWidget {
@@ -20,9 +18,7 @@ class App extends StatelessWidget {
       title: 'Aplicativo de Transporte',
       debugShowCheckedModeBanner: false,
       // define a tela inicial do projeto
-      home: Inicial(), 
+      home: Inicial(),
     );
   }
 }
-
- 

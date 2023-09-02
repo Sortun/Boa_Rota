@@ -1,4 +1,4 @@
-import 'package:find_transportes/tela_cadastro.dart';
+import 'package:find_transportes/Cadastro/tela_cadastro.dart';
 import 'package:flutter/material.dart';
 import 'package:find_transportes/widget.dart';
 import 'package:find_transportes/tela_login.dart';
@@ -35,19 +35,13 @@ class MyHomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               SizedBox(
-                width: 200, height: 200,
-                child: Image.asset(
-                    "assets/logoteste.png"), //add logo neste path (mudar na linha 57 da punspec.yaml)
+                width: 200,
+                height: 200,
+                child: Image.asset("assets/LogoBoaRota.png"),
               ),
-              Text(
-                'Boa Rota', //Mudar o texto
-                style: TituloInicial,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 10),
               Text("A informação que você precisa para o seu dia a dia.",
                   style: textpadrao, textAlign: TextAlign.center),
-              const SizedBox(height: 200),
+              const SizedBox(height: 250),
               SizedBox(
                   child: Column(children: [
                 ElevatedButton(
