@@ -75,7 +75,7 @@ class _CadastroState extends State<Cadastro> {
                     const SizedBox(height: 10),
                     TextFormField(
                         controller: txtNome,
-                        cursorColor: const Color.fromARGB(234, 118, 238, 188),
+                        cursorColor: Corpadrao,
                         keyboardType: TextInputType.text,
                         maxLength: 30,
                         validator: (String? value) {
@@ -87,7 +87,7 @@ class _CadastroState extends State<Cadastro> {
                             TextfildCadastro.copyWith(labelText: "Nome")),
                     TextFormField(
                         controller: txtEmail,
-                        cursorColor: const Color.fromARGB(234, 118, 238, 188),
+                        cursorColor: Corpadrao,
                         maxLength: 35,
                         keyboardType: TextInputType.emailAddress,
                         validator: (String? value) {
@@ -102,7 +102,7 @@ class _CadastroState extends State<Cadastro> {
                         maxLength: 10,
                         keyboardType: TextInputType.text,
                         obscureText: senhaVisivel,
-                        cursorColor: const Color.fromARGB(234, 118, 238, 188),
+                        cursorColor: Corpadrao,
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
                             return 'Senha Obrigatória';

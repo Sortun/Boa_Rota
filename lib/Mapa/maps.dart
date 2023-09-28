@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     setState(() {
-      _markerService.addMarker(currentMarker);
+      _markerService.addMarkerLocal(currentMarker);
     });
   }
 
@@ -107,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   _currentPosition.latitude,
                   _currentPosition.longitude,
                 ),
-                zoom: 15.0,
+                zoom: 20.0,
               ),
               // disabilita o icone de bulsola que é gerado automaticamente pelo Mapa
               compassEnabled: false,
@@ -121,11 +121,30 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: (position) {
                 print(position);
               }),
-              Column(children: [
+
+             Padding(
+            padding: const EdgeInsets.all(30),
+            child:
                 Expanded(
-                  child: Padding(
-                     padding: const EdgeInsets.all(30),
-                     child: TextFormField(decoration: CampoBusca)),)],),
+                  child: TextFormField(
+                    decoration: CampoBusca
+                  ),
+                )),
+                Positioned(
+              bottom: 100,
+              right: 20,
+              child: 
+              FloatingActionButton(
+                onPressed: (){
+                return _updateCameraPosition(_currentPosition.latitude, _currentPosition.longitude);
+              },
+              tooltip: "Localizar",
+              backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+              shape: const CircleBorder(),
+              child: Icon(Icons.my_location_rounded, color: Corpadrao, size: 30,),
+              )
+                 
+                  ),
         
           Positioned(
               bottom: 0,
@@ -146,9 +165,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     BottomNavigationBarItem(
                         label: "Ajustes", icon: Icon(Icons.settings, size: 35)),
                   ],
+                  currentIndex: 0,
                   onTap: (index) {
-                    if (index == 0) {
-                    } else if (index == 1) {}
+                    if (index == 1) {
+                      // add path lista
+                    }
+                    else if (index == 2) {
+                      //add path ajustes
+                    }
                   }))
         ],
       ),

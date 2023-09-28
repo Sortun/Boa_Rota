@@ -77,7 +77,7 @@ class _LoginState extends State<Login> {
                     const SizedBox(height: 20),
                     TextFormField(
                         controller: txtEmail,
-                        cursorColor: const Color.fromARGB(234, 118, 238, 188),
+                        cursorColor: Corpadrao,
                         keyboardType: TextInputType.emailAddress,
                         maxLength: 35,
                         validator: (String? value) {
@@ -94,7 +94,7 @@ class _LoginState extends State<Login> {
                         maxLength: 10,
                         keyboardType: TextInputType.text,
                         obscureText: Senhavisivel,
-                        cursorColor: const Color.fromARGB(234, 118, 238, 188),
+                        cursorColor: Corpadrao,
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
                             return 'Senha Obrigatório';
