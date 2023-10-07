@@ -1,4 +1,5 @@
 // ignore_for_file: unnecessary_null_comparison, avoid_print
+import 'package:find_transportes/horarios.dart';
 import 'package:flutter/material.dart';
 import 'package:find_transportes/widget.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -121,59 +122,44 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: (position) {
                 print(position);
               }),
-
-             Padding(
-            padding: const EdgeInsets.all(30),
-            child:
-                Expanded(
-                  child: TextFormField(
-                    decoration: CampoBusca
-                  ),
-                )),
-                Positioned(
+          Padding(
+              padding: const EdgeInsets.all(30),
+              child: Expanded(
+                child: TextFormField(
+                  decoration: CampoBusca,
+                  cursorColor: betaColor,
+                ),
+              )),
+          Positioned(
               bottom: 100,
               right: 20,
-              child: 
-              FloatingActionButton(
-                onPressed: (){
-                return _updateCameraPosition(_currentPosition.latitude, _currentPosition.longitude);
-              },
-              tooltip: "Localizar",
-              backgroundColor: const Color.fromARGB(255, 244, 244, 244),
-              shape: const CircleBorder(),
-              child: Icon(Icons.my_location_rounded, color: Corpadrao, size: 30,),
-              )
-                 
-                  ),
-        
-          Positioned(
-              bottom: 0,
-              right: 0,
-              left: 0,
-              child: BottomNavigationBar(
-                  selectedItemColor: Corpadrao,
-                  items: const [
-                    BottomNavigationBarItem(
-                      label: "Navegar",
-                      icon: Icon(
-                        Icons.location_on,
-                        size: 35,
-                      ),
-                    ),
-                    BottomNavigationBarItem(
-                        label: "Viajar", icon: Icon(Icons.near_me, size: 35)),
-                    BottomNavigationBarItem(
-                        label: "Ajustes", icon: Icon(Icons.settings, size: 35)),
-                  ],
-                  currentIndex: 0,
-                  onTap: (index) {
-                    if (index == 1) {
-                      // add path lista
-                    }
-                    else if (index == 2) {
-                      //add path ajustes
-                    }
-                  }))
+              child: FloatingActionButton(
+                onPressed: () {
+                  return _updateCameraPosition(
+                      _currentPosition.latitude, _currentPosition.longitude);
+                },
+                tooltip: "Localizar",
+                backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+                shape: const CircleBorder(),
+                child: Icon(
+                  Icons.my_location_rounded,
+                  color: defaultColor,
+                  size: 30,
+                ),
+              )),
+          CustomBottomNavigationBar(
+              currentIndex: 0,
+              onTap: (index) {
+                if (index == 1) {
+                  //tipo: substitui a outra tela
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Horarios()));
+                } else if (index == 2) {
+                  //add path ajustes
+                }
+              }),
         ],
       ),
     );

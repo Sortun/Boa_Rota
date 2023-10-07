@@ -70,14 +70,14 @@ class _LoginState extends State<Login> {
                           "assets/LogoBoaRota.png"), //add logo neste path (mudar na linha 57 da punspec.yaml)
                     ),
                     Text("A informação que você precisa para o seu dia a dia.",
-                        style: textpadrao, textAlign: TextAlign.center),
+                        style: defaultText, textAlign: TextAlign.center),
                     const SizedBox(height: 10),
                     Text("Login",
-                        style: TituloInicial, textAlign: TextAlign.center),
+                        style: defaultTitle, textAlign: TextAlign.center),
                     const SizedBox(height: 20),
                     TextFormField(
                         controller: txtEmail,
-                        cursorColor: Corpadrao,
+                        cursorColor: betaColor,
                         keyboardType: TextInputType.emailAddress,
                         maxLength: 35,
                         validator: (String? value) {
@@ -88,13 +88,15 @@ class _LoginState extends State<Login> {
                         decoration: TextfildCadastro.copyWith(
                           labelText: "E-mail",
                           counterText: '',
-                        )),
+                        ),
+                        
+                        ),
                     TextFormField(
                         controller: txtSenha,
                         maxLength: 10,
                         keyboardType: TextInputType.text,
                         obscureText: Senhavisivel,
-                        cursorColor: Corpadrao,
+                        cursorColor: betaColor,
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
                             return 'Senha Obrigatório';
@@ -126,7 +128,7 @@ class _LoginState extends State<Login> {
                             continuarLogado = checked ?? false;
                           });
                         },
-                        activeColor: Corpadrao,
+                        activeColor: defaultColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(2.0),
                         ),
@@ -141,15 +143,15 @@ class _LoginState extends State<Login> {
                           // Navigator.of(context).push(MaterialPageRoute(
                           // builder: (context) => const ()));
                         },
-                        child: const Text(
+                        child: Text(
                           "",
-                          style: TextStyle(fontSize: 12, color: Colors.blue),
+                          style: TextStyle(fontSize: 12, color: betaColor),
                         ),
                       )
                     ]),
                     const SizedBox(height: 40),
                     ElevatedButton(
-                        style: BotaoInicial,
+                        style: defaultButtom,
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const Mapa()));
@@ -167,10 +169,10 @@ class _LoginState extends State<Login> {
                                 MaterialPageRoute(
                                     builder: (context) => const Cadastro()));
                           },
-                          child: const Text(
+                          child: Text(
                             "Cadastre-se",
                             style: TextStyle(
-                              color: Colors.blue,
+                              color: betaColor,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

@@ -68,14 +68,14 @@ class _CadastroState extends State<Cadastro> {
                       child: Image.asset("assets/LogoBoaRota.png"),
                     ),
                     Text("A informação que você precisa para o seu dia a dia.",
-                        style: textpadrao, textAlign: TextAlign.center),
+                        style: defaultText, textAlign: TextAlign.center),
                     const SizedBox(height: 10),
                     Text("Cadastro",
-                        style: TituloInicial, textAlign: TextAlign.center),
+                        style: defaultTitle, textAlign: TextAlign.center),
                     const SizedBox(height: 10),
                     TextFormField(
                         controller: txtNome,
-                        cursorColor: Corpadrao,
+                        cursorColor: betaColor,
                         keyboardType: TextInputType.text,
                         maxLength: 30,
                         validator: (String? value) {
@@ -87,7 +87,7 @@ class _CadastroState extends State<Cadastro> {
                             TextfildCadastro.copyWith(labelText: "Nome")),
                     TextFormField(
                         controller: txtEmail,
-                        cursorColor: Corpadrao,
+                        cursorColor: betaColor,
                         maxLength: 35,
                         keyboardType: TextInputType.emailAddress,
                         validator: (String? value) {
@@ -102,7 +102,7 @@ class _CadastroState extends State<Cadastro> {
                         maxLength: 10,
                         keyboardType: TextInputType.text,
                         obscureText: senhaVisivel,
-                        cursorColor: Corpadrao,
+                        cursorColor: betaColor,
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
                             return 'Senha Obrigatória';
@@ -129,7 +129,7 @@ class _CadastroState extends State<Cadastro> {
                         valueListenable: formValidVN,
                         builder: (_, formValid, child) {
                           return ElevatedButton(
-                              style: BotaoInicial,
+                              style: defaultButtom,
                               onPressed: !formValid
                                   ? null
                                   : () {
@@ -151,10 +151,10 @@ class _CadastroState extends State<Cadastro> {
                                 MaterialPageRoute(
                                     builder: (context) => const Login()));
                           },
-                          child: const Text(
+                          child: Text(
                             " Entrar",
                             style: TextStyle(
-                              color: Colors.blue,
+                              color: betaColor,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

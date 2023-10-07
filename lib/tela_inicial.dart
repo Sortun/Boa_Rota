@@ -40,12 +40,12 @@ class MyHomePage extends StatelessWidget {
                 child: Image.asset("assets/LogoBoaRota.png"),
               ),
               Text("A informação que você precisa para o seu dia a dia.",
-                  style: textpadrao, textAlign: TextAlign.center),
+                  style: defaultText, textAlign: TextAlign.center),
               const SizedBox(height: 250),
               SizedBox(
                   child: Column(children: [
                 ElevatedButton(
-                  style: BotaoInicial,
+                  style: defaultButtom,
                   onPressed: () {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => const Login()));
@@ -55,12 +55,12 @@ class MyHomePage extends StatelessWidget {
                 const SizedBox(height: 20),
                 Text(
                   'Ainda não se Cadastrou?',
-                  style: textpadrao,
+                  style: defaultText,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
-                  style: BotaoInicial,
+                  style: defaultButtom,
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const Cadastro()));

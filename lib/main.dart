@@ -1,11 +1,14 @@
+import 'package:find_transportes/Firebase/firebase_options.dart';
 import 'package:find_transportes/tela_inicial.dart';
+import 'package:find_transportes/widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_config/flutter_config.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FlutterConfig.loadEnvVariables();
-
+ await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const App());
 }
 
@@ -14,11 +17,18 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: ThemeData(
+        textSelectionTheme: TextSelectionThemeData(
+          selectionHandleColor: betaColor,
+          selectionColor: defaultColor
+        ),
+      ),
       title: 'Aplicativo de Transporte',
       debugShowCheckedModeBanner: false,
+
       // define a tela inicial do projeto
-      home: Inicial(),
+      home: const Inicial(),
     );
   }
 }
