@@ -1,12 +1,8 @@
 // ignore_for_file: file_names
+import 'package:find_transportes/tela_login.dart';
 import 'package:flutter/material.dart';
 import 'package:find_transportes/widget.dart';
 
-//Sobre a tela:
-//se pode dispensar o modal ao clicar fora do espaço ---- ver com natalia
-// barrierDismissible: false,
-
-//Executar a tela de termos sem nescessariamente criar outro arquivo.dart, colocar os termos no prorpio contexto do alertdialog.
 
 class CustomDialog {
   static void show(BuildContext context) {
@@ -82,7 +78,11 @@ class CustomDialog {
                                     ? null
                                     : () {
                                         //adicionar a pagina p/ ser direcionado depois dessa com o push
-                                        Navigator.pop(context);
+                                         Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Login()));
+                                      
                                       },
                                 child: const Text('Aceitar',
                                     style: TextStyle(

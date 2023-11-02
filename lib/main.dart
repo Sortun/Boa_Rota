@@ -1,19 +1,29 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:find_transportes/Firebase/firebase_options.dart';
-import 'package:find_transportes/tela_inicial.dart';
+import 'package:find_transportes/Mapa/loadingScreen.dart';
+import 'package:find_transportes/tela_login.dart';
 import 'package:find_transportes/widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const App());
+  final prefs = await SharedPreferences.getInstance();
+  final bool continuarLogado = prefs.getBool('manterConectado') ?? false;
+
+  runApp(App(continuarLogado: continuarLogado));
 }
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const App({super.key, required this.continuarLogado});
+
+  final bool continuarLogado;
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +31,36 @@ class App extends StatelessWidget {
       theme: ThemeData(
         textSelectionTheme: TextSelectionThemeData(
           selectionHandleColor: betaColor,
-          selectionColor: defaultColor
+          selectionColor: defaultColor,
         ),
       ),
       title: 'Aplicativo de Transporte',
       debugShowCheckedModeBanner: false,
+      home: RoteadorTela(continuarLogado: continuarLogado),
+    );
+  }
+}
 
-      // define a tela inicial do projeto
-      home: const Inicial(),
+class RoteadorTela extends StatelessWidget {
+  final bool continuarLogado;
+
+  const RoteadorTela({super.key, required this.continuarLogado});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.userChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final user = snapshot.data;
+          if (continuarLogado) {
+            return const LoadingScreen();
+          } else {
+            return const Login();
+          }
+        }
+        return const Login();
+      },
     );
   }
 }

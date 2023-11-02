@@ -18,7 +18,7 @@ ButtonStyle defaultButtom = ElevatedButton.styleFrom(
     ));
 
 TextStyle defaultTitle = const TextStyle(
-  fontSize: 40,
+  fontSize: 60,
   color: Color.fromARGB(141, 0, 0, 0),
 );
 TextStyle defaultText =
@@ -49,11 +49,7 @@ InputDecoration CampoBusca = const InputDecoration(
         borderSide: BorderSide(color: Colors.black),
         borderRadius: BorderRadius.all(Radius.circular(10))),
     fillColor: Colors.white,
-    filled: true,
-    prefixIcon: Icon(
-      Icons.search,
-    ),
-    hintText: "Buscar Ponto");
+    filled: true);
 
 //NavBar App
 class CustomBottomNavigationBar extends StatelessWidget {

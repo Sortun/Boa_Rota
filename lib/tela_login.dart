@@ -1,13 +1,15 @@
 // ignore_for_file: body_might_complete_normally_nullable
 
-import 'package:find_transportes/Mapa/maps.dart';
 import 'package:find_transportes/Cadastro/tela_cadastro.dart';
-import 'package:find_transportes/tela_inicial.dart';
+import 'package:find_transportes/Mapa/loadingScreen.dart';
+import 'package:find_transportes/my_snackbar.dart';
 import 'package:find_transportes/widget.dart';
 import 'package:flutter/material.dart';
+import 'package:find_transportes/Firebase/authFunctions.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-TextEditingController txtEmail = TextEditingController();
-TextEditingController txtSenha = TextEditingController();
+TextEditingController txtEmailLogin = TextEditingController();
+TextEditingController txtSenhaLogin = TextEditingController();
 
 void main() {
   runApp(const MaterialApp(
@@ -25,12 +27,32 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final AuthService _authService = AuthService();
   bool continuarLogado = false;
-  // ignore: non_constant_identifier_names
-  bool Senhavisivel = true;
+  bool senhavisivel = true;
 
   final formLogin = GlobalKey<FormState>();
   final formValidVN = ValueNotifier<bool>(false);
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLoginState(); // Carrega o estado "Manter-se conectado" das preferências compartilhadas.
+  }
+
+  // Função para carregar o estado "Manter-se conectado" das preferências compartilhadas.
+  _loadLoginState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      continuarLogado = prefs.getBool('continuarLogado') ?? false;
+    });
+  }
+
+  // Função para salvar o estado "Manter-se conectado" nas preferências compartilhadas.
+  _saveLoginState(bool state) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('continuarLogado', state);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,39 +66,17 @@ class _LoginState extends State<Login> {
           },
           child: Stack(
             children: <Widget>[
-              Positioned(
-                  child: SafeArea(
-                      child: GestureDetector(
-                          onTap: () {
-                            Navigator.pop(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Inicial()));
-                          },
-                          child: const Padding(
-                              padding: EdgeInsets.all(16.0),
-                              child: Icon(
-                                Icons.arrow_back_ios_sharp,
-                                color: Colors.grey,
-                              ))))),
-              Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 200,
-                      child: Image.asset(
-                          "assets/LogoBoaRota.png"), //add logo neste path (mudar na linha 57 da punspec.yaml)
-                    ),
-                    Text("A informação que você precisa para o seu dia a dia.",
-                        style: defaultText, textAlign: TextAlign.center),
-                    const SizedBox(height: 10),
-                    Text("Login",
-                        style: defaultTitle, textAlign: TextAlign.center),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                        controller: txtEmail,
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      const SizedBox(height: 150),
+                      Text("Login", style: defaultTitle),
+                      const SizedBox(height: 50),
+                      TextFormField(
+                        controller: txtEmailLogin,
                         cursorColor: betaColor,
                         keyboardType: TextInputType.emailAddress,
                         maxLength: 35,
@@ -89,99 +89,111 @@ class _LoginState extends State<Login> {
                           labelText: "E-mail",
                           counterText: '',
                         ),
-                        
-                        ),
-                    TextFormField(
-                        controller: txtSenha,
-                        maxLength: 10,
-                        keyboardType: TextInputType.text,
-                        obscureText: Senhavisivel,
-                        cursorColor: betaColor,
-                        validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Senha Obrigatório';
-                          }
-                        },
-                        decoration: TextfildCadastro.copyWith(
-                          counterText: '',
-                          labelText: "Senha",
-                          suffixIcon: GestureDetector(
-                            child: Icon(
-                              Senhavisivel == true
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: Colors.grey,
-                            ),
-                            onTap: () {
-                              setState(() {
-                                Senhavisivel = !Senhavisivel;
-                              });
-                            },
-                          ),
-                        )),
-                    const SizedBox(height: 20),
-                    Row(children: [
-                      Checkbox(
-                        value: continuarLogado,
-                        onChanged: (bool? checked) {
-                          setState(() {
-                            continuarLogado = checked ?? false;
-                          });
-                        },
-                        activeColor: defaultColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2.0),
-                        ),
                       ),
-                      const Text(
-                        "Manter-se conectado?",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          //MAnterse conectado
-                          // Navigator.of(context).push(MaterialPageRoute(
-                          // builder: (context) => const ()));
-                        },
-                        child: Text(
-                          "",
-                          style: TextStyle(fontSize: 12, color: betaColor),
-                        ),
-                      )
-                    ]),
-                    const SizedBox(height: 40),
-                    ElevatedButton(
-                        style: defaultButtom,
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const Mapa()));
-                        },
-                        child: const Text("Entrar")),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        const Text("Não possuí uma conta? ",
-                            textAlign: TextAlign.center),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Cadastro()));
+                      TextFormField(
+                          controller: txtSenhaLogin,
+                          maxLength: 10,
+                          keyboardType: TextInputType.text,
+                          obscureText: senhavisivel,
+                          cursorColor: betaColor,
+                          validator: (String? value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Senha Obrigatório';
+                            }
                           },
-                          child: Text(
-                            "Cadastre-se",
-                            style: TextStyle(
-                              color: betaColor,
-                              fontWeight: FontWeight.bold,
+                          decoration: TextfildCadastro.copyWith(
+                            counterText: '',
+                            labelText: "Senha",
+                            suffixIcon: GestureDetector(
+                              child: Icon(
+                                senhavisivel == true
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: Colors.grey,
+                              ),
+                              onTap: () {
+                                setState(() {
+                                  senhavisivel = !senhavisivel;
+                                });
+                              },
                             ),
+                          )),
+                      const SizedBox(height: 20),
+                      Row(children: [
+                        Checkbox(
+                          value: continuarLogado,
+                          onChanged: (bool? checked) {
+                            setState(() {
+                              continuarLogado = checked ?? false;
+                              _saveLoginState(continuarLogado);
+                            });
+                          },
+                          activeColor: defaultColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(2.0),
                           ),
                         ),
-                      ],
-                    ),
-                  ],
+                        const Text(
+                          "Manter-se conectado?",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Text(
+                            "",
+                            style: TextStyle(fontSize: 12, color: betaColor),
+                          ),
+                        )
+                      ]),
+                      const SizedBox(height: 40),
+                      ElevatedButton(
+                          style: defaultButtom,
+                          onPressed: () async {
+                            String email = txtEmailLogin.text;
+                            String senha = txtSenhaLogin.text;
+                            String? loginResult = await _authService
+                                .logarUsuarios(email: email, senha: senha, manterConectado: continuarLogado);
+
+                            if (loginResult == null) {
+                              // O login foi bem-sucedido, navegue para a tela do mapa.
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const LoadingScreen(),
+                                ),
+                              );
+                            } else {
+                              showSnackbar(
+                                  context: context, texto: loginResult);
+                            }
+                          },
+                          child: const Text("Entrar")),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          const Text("Não possuí uma conta? ",
+                              textAlign: TextAlign.center),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const Cadastro()));
+                            },
+                            child: Text(
+                              "Cadastre-se",
+                              style: TextStyle(
+                                color: betaColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+              )
             ],
           ),
         )));

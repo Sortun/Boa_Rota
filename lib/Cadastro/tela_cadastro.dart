@@ -1,13 +1,15 @@
-// ignore_for_file: body_might_complete_normally_nullable
+// ignore_for_file: body_might_complete_normally_nullable, use_build_context_synchronously
 
+import 'package:find_transportes/Firebase/authFunctions.dart';
+import 'package:find_transportes/my_snackbar.dart';
 import 'package:find_transportes/tela_login.dart';
 import 'package:find_transportes/widget.dart';
 import 'package:flutter/material.dart';
 import 'alertdialog_Termos.dart';
 
-TextEditingController txtNome = TextEditingController();
-TextEditingController txtEmail = TextEditingController();
-TextEditingController txtSenha = TextEditingController();
+TextEditingController txtNomeCadastro = TextEditingController();
+TextEditingController txtEmailCadastro = TextEditingController();
+TextEditingController txtSenhaCadastro = TextEditingController();
 
 void main() {
   runApp(const MaterialApp(
@@ -25,6 +27,8 @@ class Cadastro extends StatefulWidget {
 }
 
 class _CadastroState extends State<Cadastro> {
+final AuthService _authService = AuthService();
+
   void _showAlertDialog() {
     CustomDialog.show(context);
   }
@@ -46,35 +50,18 @@ class _CadastroState extends State<Cadastro> {
           },
           child: Stack(
             children: <Widget>[
-              Positioned(
-                  child: SafeArea(
-                      child: GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Padding(
-                              padding: EdgeInsets.all(16.0),
-                              child: Icon(
-                                Icons.arrow_back_ios_sharp,
-                                color: Colors.grey,
-                              ))))),
               Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    SizedBox(
-                      height: 170,
-                      child: Image.asset("assets/LogoBoaRota.png"),
-                    ),
-                    Text("A informação que você precisa para o seu dia a dia.",
-                        style: defaultText, textAlign: TextAlign.center),
-                    const SizedBox(height: 10),
+                  
+                    const SizedBox(height: 150),
                     Text("Cadastro",
-                        style: defaultTitle, textAlign: TextAlign.center),
-                    const SizedBox(height: 10),
+                        style: defaultTitle),
+                    const SizedBox(height: 50),
                     TextFormField(
-                        controller: txtNome,
+                        controller: txtNomeCadastro,
                         cursorColor: betaColor,
                         keyboardType: TextInputType.text,
                         maxLength: 30,
@@ -86,7 +73,7 @@ class _CadastroState extends State<Cadastro> {
                         decoration:
                             TextfildCadastro.copyWith(labelText: "Nome")),
                     TextFormField(
-                        controller: txtEmail,
+                        controller: txtEmailCadastro,
                         cursorColor: betaColor,
                         maxLength: 35,
                         keyboardType: TextInputType.emailAddress,
@@ -98,7 +85,7 @@ class _CadastroState extends State<Cadastro> {
                         decoration:
                             TextfildCadastro.copyWith(labelText: "E-mail")),
                     TextFormField(
-                        controller: txtSenha,
+                        controller: txtSenhaCadastro,
                         maxLength: 10,
                         keyboardType: TextInputType.text,
                         obscureText: senhaVisivel,
@@ -132,17 +119,22 @@ class _CadastroState extends State<Cadastro> {
                               style: defaultButtom,
                               onPressed: !formValid
                                   ? null
-                                  : () {
+                                  : () async{
                                       _formCadastro.currentState?.validate() ??
                                           false;
-                                      _showAlertDialog();
+                                      final regSucesso =
+                                          await registeronFirebase();
+                                      if (regSucesso) {
+                                        _showAlertDialog();
+                                      }
                                     },
+                                    
                               child: const Text("Cadastrar"));
                         }),
                     const SizedBox(height: 10),
                     Row(
                       children: [
-                        const Text("ja possui uma Conta? ",
+                        const Text("Ja possui uma Conta? ",
                             textAlign: TextAlign.center),
                         GestureDetector(
                           onTap: () {
@@ -167,5 +159,31 @@ class _CadastroState extends State<Cadastro> {
             ],
           ),
         )));
+}
+  Future<bool> registeronFirebase() async {
+    String nome = txtNomeCadastro.text;
+    String email = txtEmailCadastro.text;
+    String senha = txtSenhaCadastro.text;
+
+    final value = await _authService.cadastroUsuario(
+        nome: nome, email: email, senha: senha);
+
+    if (value.errorMessage != null) {
+      showSnackbar(context: context, texto: value.errorMessage!);
+      return false;
+    } else {
+      showSnackbar(
+          context: context, texto: "Cadastro feito com sucesso", isErro: false);
+      cleaner();
+      return true;
+    }
   }
+}
+
+cleaner() {
+  txtEmailCadastro.clear();
+  txtNomeCadastro.clear();
+  txtSenhaCadastro.clear();
+  txtEmailLogin.clear();
+  txtSenhaLogin.clear();
 }

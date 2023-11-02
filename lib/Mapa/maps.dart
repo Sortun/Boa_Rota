@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison, avoid_print
+import 'package:find_transportes/Firebase/authFunctions.dart';
 import 'package:find_transportes/horarios.dart';
+import 'package:find_transportes/tela_login.dart';
 import 'package:flutter/material.dart';
 import 'package:find_transportes/widget.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -64,9 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         _currentPosition = position;
       });
-
       _updateCameraPosition(position.latitude, position.longitude);
-      _addCurrentLocationMarker(position.latitude, position.longitude);
     } catch (e) {
       print("Erro ao coletar a posição atual: $e");
     }
@@ -74,20 +74,23 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _updateCameraPosition(double lat, double lng) {
     if (mapController != null) {
+      _addCurrentLocationMarker(
+          _currentPosition.latitude, _currentPosition.longitude);
       mapController.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: LatLng(lat, lng), zoom: 15.0),
+        CameraPosition(target: LatLng(lat, lng), zoom: 16.0),
       ));
     }
   }
 
-  void _addCurrentLocationMarker(double lat, double lng) {
+  Future<void> _addCurrentLocationMarker(double lat, double lng) async {
+    final localIcon = await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(size: Size(35, 60)),
+        'assets/iconPinEscuro1.png');
     final currentMarker = Marker(
-      markerId: const MarkerId("localizacaoatual"),
-      position: LatLng(lat, lng),
-      infoWindow: const InfoWindow(
-        title: 'Minha Localização Atual',
-      ),
-    );
+        markerId: const MarkerId("localizacaoatual"),
+        icon: localIcon,
+        position: LatLng(lat, lng),
+        infoWindow: const InfoWindow(title: 'Minha Localização Atual'));
 
     setState(() {
       _markerService.addMarkerLocal(currentMarker);
@@ -114,6 +117,8 @@ class _MyHomePageState extends State<MyHomePage> {
               compassEnabled: false,
               // disabilita o icone de zoom que é gerado automaticamente pelo Mapa
               zoomControlsEnabled: false,
+
+              myLocationEnabled: true,
               //toda vez que houver movimentações na tela os dados serão exibidos no console
               onCameraMove: (data) {
                 print(data);
@@ -149,7 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
               )),
           CustomBottomNavigationBar(
               currentIndex: 0,
-              onTap: (index) {
+              onTap: (index) async {
                 if (index == 1) {
                   //tipo: substitui a outra tela
                   Navigator.pushReplacement(
@@ -157,8 +162,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       MaterialPageRoute(
                           builder: (context) => const Horarios()));
                 } else if (index == 2) {
-                  //add path ajustes
-                }
+ await AuthService().deslogar();
+      // Após o logout, navega para a tela de login (ou qualquer tela apropriada)
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Login(),
+        ),
+      );                }
               }),
         ],
       ),
