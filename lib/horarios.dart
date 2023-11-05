@@ -1,5 +1,8 @@
-import 'package:find_transportes/Mapa/maps.dart';
-import 'package:find_transportes/widget.dart';
+// ignore_for_file: avoid_print
+
+import 'package:find_transportes/Mapa/mapa.dart';
+import 'package:find_transportes/Core/widget.dart';
+import 'package:find_transportes/Ajustes/settings.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -242,14 +245,18 @@ class _MyHomePageState extends State<MyHomePage> {
             currentIndex: 1,
             onTap: (index) {
               if (index == 0) {
-                //tipo: substitui a outra tela
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const Mapa(),
                   ),
                 );
-              } else if (index == 2) {}
+              } else if (index == 2) {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SettingsPage()));
+              }
             },
           ),
         ),

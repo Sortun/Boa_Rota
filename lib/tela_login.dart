@@ -2,8 +2,8 @@
 
 import 'package:find_transportes/Cadastro/tela_cadastro.dart';
 import 'package:find_transportes/Mapa/loadingScreen.dart';
-import 'package:find_transportes/my_snackbar.dart';
-import 'package:find_transportes/widget.dart';
+import 'package:find_transportes/Core/my_snackbar.dart';
+import 'package:find_transportes/Core/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:find_transportes/Firebase/authFunctions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -145,7 +145,7 @@ class _LoginState extends State<Login> {
                           ),
                         )
                       ]),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 20),
                       ElevatedButton(
                           style: defaultButtom,
                           onPressed: () async {
@@ -168,10 +168,10 @@ class _LoginState extends State<Login> {
                             }
                           },
                           child: const Text("Entrar")),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 20),
                       Row(
                         children: [
-                          const Text("Não possuí uma conta? ",
+                          const Text("Não possuí uma conta? ", style: TextStyle(fontSize: 16),
                               textAlign: TextAlign.center),
                           GestureDetector(
                             onTap: () {
@@ -183,6 +183,7 @@ class _LoginState extends State<Login> {
                             child: Text(
                               "Cadastre-se",
                               style: TextStyle(
+                                fontSize: 16,
                                 color: betaColor,
                                 fontWeight: FontWeight.bold,
                               ),

@@ -24,6 +24,9 @@ TextStyle defaultTitle = const TextStyle(
 TextStyle defaultText =
     const TextStyle(fontSize: 16, color: Color.fromARGB(141, 0, 0, 0));
 
+TextStyle subtitle =
+    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
+
 InputDecoration TextfildCadastro = InputDecoration(
   labelStyle: const TextStyle(color: Color.fromARGB(135, 0, 0, 0),),
   enabledBorder:
@@ -43,11 +46,11 @@ ButtonStyle botaoPadrao = ElevatedButton.styleFrom(
 //Search fild
 InputDecoration CampoBusca = const InputDecoration(
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(10)),
+      borderRadius: BorderRadius.all(Radius.circular(5.0)),
     ),
     focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.black),
-        borderRadius: BorderRadius.all(Radius.circular(10))),
+        borderRadius: BorderRadius.all(Radius.circular(5.0))),
     fillColor: Colors.white,
     filled: true);
 

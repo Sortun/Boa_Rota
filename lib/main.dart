@@ -3,7 +3,7 @@
 import 'package:find_transportes/Firebase/firebase_options.dart';
 import 'package:find_transportes/Mapa/loadingScreen.dart';
 import 'package:find_transportes/tela_login.dart';
-import 'package:find_transportes/widget.dart';
+import 'package:find_transportes/Core/widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,7 +24,7 @@ class App extends StatelessWidget {
   const App({super.key, required this.continuarLogado});
 
   final bool continuarLogado;
-
+ 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -34,7 +34,7 @@ class App extends StatelessWidget {
           selectionColor: defaultColor,
         ),
       ),
-      title: 'Aplicativo de Transporte',
+      title: 'Boa Rota',
       debugShowCheckedModeBanner: false,
       home: RoteadorTela(continuarLogado: continuarLogado),
     );

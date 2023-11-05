@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
+import 'package:find_transportes/Ajustes/SobreNos/termsOfUse.dart';
 import 'package:find_transportes/tela_login.dart';
 import 'package:flutter/material.dart';
-import 'package:find_transportes/widget.dart';
-
+import 'package:find_transportes/Core/widget.dart';
 
 class CustomDialog {
   static void show(BuildContext context) {
@@ -18,12 +18,12 @@ class CustomDialog {
               scrollable: true,
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10))),
-              title: const Text('Atenção'),
+              title: const Text('Atenção', style: TextStyle(fontSize: 24)),
               content: StatefulBuilder(builder: (BuildContext context,
                   void Function(void Function()) setState) {
                 return SizedBox(
                   width: 300,
-                  height: 139,
+                  height: 110,
                   child: Column(
                     children: [
                       Row(children: [
@@ -38,25 +38,24 @@ class CustomDialog {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(2.0)),
                         ),
-                        const SizedBox(width: 5),
-                        const Text('Aceitar os Termos de Uso?',
-                            style: TextStyle(fontSize: 16))
+                        const SizedBox(width: 2),
+                        const Text('Aceitar os',
+                            style: TextStyle(fontSize: 18)),
+                        MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          const TermsOfUse()));
+                                },
+                                child: Text(' Termos de Uso?',
+                                    style: TextStyle(
+                                        fontSize: 18, color: betaColor)))),
                       ]),
-                      Padding(
-                          padding: const EdgeInsets.only(right: 100),
-                          child: GestureDetector(
-                              onTap: () {
-                                //DEFINIR PAT DA TELA DE TERMOS E CONDIÇÕES
-                                // Navigator.of(context).push(MaterialPageRoute(
-                                // builder: (context) => const Temos()));
-                              },
-                              child: Text('Revisar Termos',
-                                  style: TextStyle(
-                                      fontSize: 16, color: betaColor)))),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
-                          //Botão p/ cancelar
                           Padding(
                               padding: const EdgeInsets.only(left: 5, right: 5),
                               child: ElevatedButton(
@@ -68,8 +67,6 @@ class CustomDialog {
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 16),
                                       textAlign: TextAlign.center))),
-
-                          //Botão para aceitar termos e ir p/ proxima tela
                           Padding(
                             padding: const EdgeInsets.only(left: 60),
                             child: ElevatedButton(
@@ -77,12 +74,11 @@ class CustomDialog {
                                 onPressed: !aceitotermos
                                     ? null
                                     : () {
-                                        //adicionar a pagina p/ ser direcionado depois dessa com o push
-                                         Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Login()));
-                                      
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const Login()));
                                       },
                                 child: const Text('Aceitar',
                                     style: TextStyle(

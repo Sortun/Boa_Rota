@@ -1,13 +1,13 @@
 // ignore_for_file: unnecessary_null_comparison, avoid_print
-import 'package:find_transportes/Firebase/authFunctions.dart';
+
+import 'package:find_transportes/Mapa/permissions.dart';
 import 'package:find_transportes/horarios.dart';
-import 'package:find_transportes/tela_login.dart';
+import 'package:find_transportes/Ajustes/settings.dart';
 import 'package:flutter/material.dart';
-import 'package:find_transportes/widget.dart';
+import 'package:find_transportes/Core/widget.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:find_transportes/Mapa/markers_map.dart';
-import 'package:find_transportes/Mapa/permissions.dart';
 
 void main() {
   runApp(const Mapa());
@@ -33,35 +33,29 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  //MAPA
-  late GoogleMapController mapController;
+  GoogleMapController? mapController;
+  Position? _currentPosition;
+
+  //localização padrão da cidade
+  final LatLng defaultLocalInitialized =
+      const LatLng(-22.298303591536, -48.56007993221);
+
+  //Markers
   final MarkerService _markerService = MarkerService();
 
-  void _onMapCreated(GoogleMapController controller) {
+  Future<void> _onMapCreated(GoogleMapController controller) async {
     mapController = controller;
   }
-
-  //geolocator
-  Position _currentPosition = Position(
-      latitude: 0,
-      longitude: 0,
-      accuracy: 0,
-      timestamp: DateTime.now(),
-      altitude: 0,
-      heading: 0,
-      speed: 0,
-      speedAccuracy: 0);
 
   @override
   void initState() {
     super.initState();
-    _getCurrentLocation();
+    _updateCameraLocation();
   }
 
-  void _getCurrentLocation() async {
+  void _updateCameraLocation() async {
     try {
-      Position position =
-          await determinePosition(); // Chame a função da validação
+      Position position = await determinePosition();
       print("Posição atual: ${position.latitude}, ${position.longitude}");
       setState(() {
         _currentPosition = position;
@@ -72,29 +66,11 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void _updateCameraPosition(double lat, double lng) {
+  void _updateCameraPosition(double lat, double long) {
     if (mapController != null) {
-      _addCurrentLocationMarker(
-          _currentPosition.latitude, _currentPosition.longitude);
-      mapController.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: LatLng(lat, lng), zoom: 16.0),
-      ));
+      mapController!.animateCamera(CameraUpdate.newCameraPosition(
+          CameraPosition(target: LatLng(lat, long), zoom: 17.5)));
     }
-  }
-
-  Future<void> _addCurrentLocationMarker(double lat, double lng) async {
-    final localIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(size: Size(35, 60)),
-        'assets/iconPinEscuro1.png');
-    final currentMarker = Marker(
-        markerId: const MarkerId("localizacaoatual"),
-        icon: localIcon,
-        position: LatLng(lat, lng),
-        infoWindow: const InfoWindow(title: 'Minha Localização Atual'));
-
-    setState(() {
-      _markerService.addMarkerLocal(currentMarker);
-    });
   }
 
   @override
@@ -104,21 +80,23 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           GoogleMap(
               //Marcadores:
-              markers: _markerService.getMarkers(),
               onMapCreated: _onMapCreated,
+              markers: _markerService.getMarkers(),
               initialCameraPosition: CameraPosition(
                 target: LatLng(
-                  _currentPosition.latitude,
-                  _currentPosition.longitude,
+                  _currentPosition?.latitude ??
+                      defaultLocalInitialized.latitude,
+                  _currentPosition?.longitude ??
+                      defaultLocalInitialized.longitude,
                 ),
-                zoom: 20.0,
+                zoom: 17.5,
               ),
               // disabilita o icone de bulsola que é gerado automaticamente pelo Mapa
               compassEnabled: false,
               // disabilita o icone de zoom que é gerado automaticamente pelo Mapa
               zoomControlsEnabled: false,
-
               myLocationEnabled: true,
+              myLocationButtonEnabled: false,
               //toda vez que houver movimentações na tela os dados serão exibidos no console
               onCameraMove: (data) {
                 print(data);
@@ -129,10 +107,14 @@ class _MyHomePageState extends State<MyHomePage> {
               }),
           Padding(
               padding: const EdgeInsets.all(30),
-              child: Expanded(
-                child: TextFormField(
-                  decoration: CampoBusca,
-                  cursorColor: betaColor,
+              child: TextFormField(
+                cursorColor: betaColor,
+                decoration: CampoBusca.copyWith(
+                  prefixIcon: const Icon(
+                    Icons.search,
+                  ),
+                  suffixIcon: IconButton(
+                      icon: const Icon(Icons.clear), onPressed: () {}),
                 ),
               )),
           Positioned(
@@ -140,8 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
               right: 20,
               child: FloatingActionButton(
                 onPressed: () {
-                  return _updateCameraPosition(
-                      _currentPosition.latitude, _currentPosition.longitude);
+                  _updateCameraLocation();
                 },
                 tooltip: "Localizar",
                 backgroundColor: const Color.fromARGB(255, 244, 244, 244),
@@ -154,25 +135,29 @@ class _MyHomePageState extends State<MyHomePage> {
               )),
           CustomBottomNavigationBar(
               currentIndex: 0,
-              onTap: (index) async {
+              onTap: (index) {
                 if (index == 1) {
-                  //tipo: substitui a outra tela
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const Horarios()));
                 } else if (index == 2) {
- await AuthService().deslogar();
-      // Após o logout, navega para a tela de login (ou qualquer tela apropriada)
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const Login(),
-        ),
-      );                }
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SettingsPage()));
+                }
               }),
         ],
       ),
     );
   }
 }
+/*await AuthService().deslogar();
+   Após o logout, navega para a tela de login (ou qualquer tela apropriada)
+   Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const Login(),
+      ),
+      );*/

@@ -1,9 +1,9 @@
 // ignore_for_file: body_might_complete_normally_nullable, use_build_context_synchronously
 
 import 'package:find_transportes/Firebase/authFunctions.dart';
-import 'package:find_transportes/my_snackbar.dart';
+import 'package:find_transportes/Core/my_snackbar.dart';
 import 'package:find_transportes/tela_login.dart';
-import 'package:find_transportes/widget.dart';
+import 'package:find_transportes/Core/widget.dart';
 import 'package:flutter/material.dart';
 import 'alertdialog_Termos.dart';
 
@@ -131,10 +131,10 @@ final AuthService _authService = AuthService();
                                     
                               child: const Text("Cadastrar"));
                         }),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     Row(
                       children: [
-                        const Text("Ja possui uma Conta? ",
+                        const Text("Ja possui uma Conta? ", style: TextStyle(fontSize: 16),
                             textAlign: TextAlign.center),
                         GestureDetector(
                           onTap: () {
@@ -146,6 +146,7 @@ final AuthService _authService = AuthService();
                           child: Text(
                             " Entrar",
                             style: TextStyle(
+                              fontSize: 16,
                               color: betaColor,
                               fontWeight: FontWeight.bold,
                             ),

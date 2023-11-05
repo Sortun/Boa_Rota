@@ -1,6 +1,7 @@
 
+import 'package:find_transportes/Core/widget.dart';
 import 'package:flutter/material.dart';
-import 'package:find_transportes/Mapa/maps.dart';
+import 'package:find_transportes/Mapa/mapa.dart';
 
 
 class LoadingScreen extends StatelessWidget {
@@ -31,14 +32,14 @@ class _MyHomePageState extends State<MyHomePage> {
       Future<void> loadMapData() async {
        //simula um carregamento da tela do mapa com 2 secs de atraso
 
-    await Future.delayed(const Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 6));
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (context) => const Mapa()),
     );
   }
   
   Widget build(BuildContext context) {
-    return const Scaffold(
-       body: Center(child: CircularProgressIndicator(),));
+    return Scaffold(
+       body: Center(child: CircularProgressIndicator(color: defaultColor),));
   }
 }

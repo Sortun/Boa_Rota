@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, avoid_print
+
 import 'package:find_transportes/Cadastro/tela_cadastro.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -62,8 +64,7 @@ class AuthService {
   Future<String?> logarUsuarios(
       {required String email,
       required String senha,
-      bool manterConectado = false
-      }) async {
+      bool manterConectado = false}) async {
     if (email.isEmpty || senha.isEmpty) {
       cleaner();
       return "Email e senha são obrigatórios.";
@@ -73,17 +74,17 @@ class AuthService {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: senha);
 
-           if (manterConectado) {
-      final user = _firebaseAuth.currentUser;
-      if (user != null) {
+      if (manterConectado) {
+        final user = _firebaseAuth.currentUser;
+        if (user != null) {
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setBool('manterConectado', true);
+        }
+      } else {
+        // Se manterConectado for falso, defina a preferência como false.
         final prefs = await SharedPreferences.getInstance();
-        await prefs.setBool('manterConectado', true);
+        await prefs.setBool('manterConectado', false);
       }
-    } else {
-      // Se manterConectado for falso, defina a preferência como false.
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('manterConectado', false);
-    }
       return null; // Login bem-sucedido.
     } on FirebaseAuthException catch (e) {
       if (e.code == "invalid-email") {

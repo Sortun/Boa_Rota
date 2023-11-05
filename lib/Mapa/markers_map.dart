@@ -16,7 +16,7 @@ class MarkerService {
     required String snippet,
   }) async {
     final BitmapDescriptor icon = await BitmapDescriptor.fromAssetImage(
-      const ImageConfiguration(size: Size(35, 60)),
+      const ImageConfiguration(size: Size(29.16, 50.00)),
       iconPath);
  
     final marker = Marker(

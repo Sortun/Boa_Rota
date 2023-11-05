@@ -1,4 +1,4 @@
-import 'package:find_transportes/widget.dart';
+import 'package:find_transportes/Core/widget.dart';
 import 'package:flutter/material.dart';
 
 showSnackbar(
