@@ -1,20 +1,11 @@
-// import 'dart:ffi';
-// import 'package:find_transportes/Mapa/maps.dart';
 import 'package:find_transportes/Ajustes/SobreNos/aboutUs.dart';
 import 'package:find_transportes/Core/widget.dart';
 import 'package:find_transportes/Firebase/authFunctions.dart';
+import 'package:find_transportes/Rotas/listRotas.dart';
 import 'package:find_transportes/Mapa/mapa.dart';
-import 'package:find_transportes/horarios.dart';
 import 'package:find_transportes/tela_login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-/*import 'account.dart';
-import 'shareApp.dart';
-import 'contactUs.dart';
-import 'SobreNos/aboutUs.dart';*/
-
-void main() {
-  runApp(const SettingsPage());
-}
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -36,18 +27,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> settingsList = [
-    'Conta',
-    'Compartilhar com Amigos',
-    'Tema',
-    'Nos Contate',
-    'Sobre nós',
-    'Deslogar'
-  ];
+  String userEmail = '';
+  String userName = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getUserDetails();
+  }
+
+  Future<void> getUserDetails() async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      setState(() {
+        userEmail = user.email ?? '';
+        userName = user.displayName ?? '';
+      });
+    }
+  }
+
+  List<String> settingsList = ['Sobre nós', 'Deslogar'];
   List<Icon> icons = [
-    const Icon(Icons.account_circle_rounded),
-    const Icon(Icons.ios_share_rounded),
-    const Icon(Icons.nightlight),
     const Icon(Icons.help_sharp),
     const Icon(Icons.info_outline),
     const Icon(Icons.output)
@@ -58,48 +59,83 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         body: Stack(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: ListView.builder(
-            itemCount: settingsList.length,
-            itemBuilder: (context, index) {
-              return Card(
-                child: ListTile(
-                    onTap: () async {
-                      if (index == 0) {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const Horarios())); //Account
-                      } else if (index == 1) {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const Horarios())); //ShareApp
-                      } else if (index == 2) {
-                        //index de mudar de tema
-                      } else if (index == 3) {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                const Horarios())); //ContactUs
-                      } else if (index == 4) {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const AboutUs())); //about
-                      } else if (index == 5) {
-                        await AuthService().deslogar();
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const Login(),
-                          ),
-                        );
-                      }
-                    },
-                    title: Text(
-                      settingsList[index],
-                      style: const TextStyle(color: Colors.black54),
-                    ),
-                    leading: Icon(icons[index].icon, color: defaultColor),
-                    contentPadding: const EdgeInsets.all(15)),
-              );
-            },
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 150,
+              width: double.infinity,
+              color: defaultColor,
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                Row(
+  children: [
+    const Icon(
+      Icons.account_circle_rounded,
+      size: 110,
+      color: Colors.white,
+    ),
+    const SizedBox(width: 10),
+    Align(
+      alignment: Alignment.centerLeft,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start, 
+        children: [
+          const SizedBox(height: 5,),
+          Text(
+            'Olá, $userName'.toUpperCase(),
+            style: const TextStyle(fontSize: 35, color: Colors.white),
           ),
+          Text(
+            ' $userEmail',
+            style: const TextStyle(fontSize: 20, color: Color.fromARGB(226, 255, 255, 255),),
+          ),
+        ],
+      ),
+    ),
+  ],
+)
+                ],
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ListView.builder(
+                  itemCount: settingsList.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      child: ListTile(
+                          onTap: () async {
+                              if (index == 0) {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      const AboutUs())); //about
+                            } else if (index == 1) {
+                              await AuthService().deslogar();
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Login(),
+                                ),
+                              );
+                            }
+                          },
+                          title: Text(
+                            settingsList[index],
+                            style: const TextStyle(color: Colors.black54),
+                          ),
+                          leading: Icon(icons[index].icon, color: defaultColor),
+                          contentPadding: const EdgeInsets.all(15)),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
         ),
         CustomBottomNavigationBar(
             currentIndex: 2,

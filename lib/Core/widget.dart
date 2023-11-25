@@ -52,6 +52,7 @@ InputDecoration CampoBusca = const InputDecoration(
         borderSide: BorderSide(color: Colors.black),
         borderRadius: BorderRadius.all(Radius.circular(5.0))),
     fillColor: Colors.white,
+    hintText: "Pesquisar Rota",
     filled: true);
 
 //NavBar App
@@ -82,9 +83,9 @@ class CustomBottomNavigationBar extends StatelessWidget {
             ),
           ),
           BottomNavigationBarItem(
-            label: "Viajar",
+            label: "Itinerários",
             icon: Icon(
-              Icons.near_me,
+              Icons.map_outlined,
               size: 35,
             ),
           ),

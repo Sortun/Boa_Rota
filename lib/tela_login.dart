@@ -11,22 +11,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 TextEditingController txtEmailLogin = TextEditingController();
 TextEditingController txtSenhaLogin = TextEditingController();
 
-void main() {
-  runApp(const MaterialApp(
-    title: 'Login App',
-    home: Login(),
-    debugShowCheckedModeBanner: false,
-  ));
-}
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
   @override
-  // ignore: library_private_types_in_public_api
-  _LoginState createState() => _LoginState();
+  LoginState createState() => LoginState();
 }
 
-class _LoginState extends State<Login> {
+class LoginState extends State<Login> {
   final AuthService _authService = AuthService();
   bool continuarLogado = false;
   bool senhavisivel = true;
@@ -37,10 +29,9 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    _loadLoginState(); // Carrega o estado "Manter-se conectado" das preferências compartilhadas.
+    _loadLoginState(); 
   }
 
-  // Função para carregar o estado "Manter-se conectado" das preferências compartilhadas.
   _loadLoginState() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -48,7 +39,6 @@ class _LoginState extends State<Login> {
     });
   }
 
-  // Função para salvar o estado "Manter-se conectado" nas preferências compartilhadas.
   _saveLoginState(bool state) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('continuarLogado', state);
@@ -77,7 +67,7 @@ class _LoginState extends State<Login> {
                       const SizedBox(height: 50),
                       TextFormField(
                         controller: txtEmailLogin,
-                        cursorColor: betaColor,
+                        cursorColor: defaultColor,
                         keyboardType: TextInputType.emailAddress,
                         maxLength: 35,
                         validator: (String? value) {
@@ -95,7 +85,7 @@ class _LoginState extends State<Login> {
                           maxLength: 10,
                           keyboardType: TextInputType.text,
                           obscureText: senhavisivel,
-                          cursorColor: betaColor,
+                          cursorColor: defaultColor,
                           validator: (String? value) {
                             if (value == null || value.isEmpty) {
                               return 'Senha Obrigatório';
@@ -151,15 +141,17 @@ class _LoginState extends State<Login> {
                           onPressed: () async {
                             String email = txtEmailLogin.text;
                             String senha = txtSenhaLogin.text;
-                            String? loginResult = await _authService
-                                .logarUsuarios(email: email, senha: senha, manterConectado: continuarLogado);
+                            String? loginResult =
+                                await _authService.logarUsuarios(
+                                    email: email,
+                                    senha: senha,
+                                    manterConectado: continuarLogado);
 
                             if (loginResult == null) {
                               // O login foi bem-sucedido, navegue para a tela do mapa.
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      const LoadingScreen(),
+                                  builder: (context) => const LoadingScreen(),
                                 ),
                               );
                             } else {
@@ -171,7 +163,8 @@ class _LoginState extends State<Login> {
                       const SizedBox(height: 20),
                       Row(
                         children: [
-                          const Text("Não possuí uma conta? ", style: TextStyle(fontSize: 16),
+                          const Text("Não possuí uma conta? ",
+                              style: TextStyle(fontSize: 16),
                               textAlign: TextAlign.center),
                           GestureDetector(
                             onTap: () {

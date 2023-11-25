@@ -38,8 +38,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
   
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-       body: Center(child: CircularProgressIndicator(color: defaultColor),));
+       body: Center(child: CircularProgressIndicator(color: defaultColor,),));
   }
 }

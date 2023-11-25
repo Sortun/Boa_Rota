@@ -24,7 +24,7 @@ class App extends StatelessWidget {
   const App({super.key, required this.continuarLogado});
 
   final bool continuarLogado;
- 
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

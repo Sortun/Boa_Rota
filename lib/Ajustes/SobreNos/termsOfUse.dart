@@ -87,7 +87,7 @@ class TermsOfUse extends StatelessWidget {
               ),
               Text(
                 style: defaultText,
-                "  Se você tiver alguma dúvida ou preocupação sobre estes Termos e Condições ou o uso do aplicativo Boa Rota, entre em contato conosco através do seguinte endereço de e-mail: appBoarota@gmail.com.",
+                "  Se você tiver alguma dúvida ou preocupação sobre estes Termos e Condições ou o uso do aplicativo Boa Rota, entre em contato conosco através do seguinte endereço de e-mail: appboarota@gmail.com.",
               ),
               const SizedBox(height: 10),
               const Divider(),

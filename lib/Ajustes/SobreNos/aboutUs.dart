@@ -1,7 +1,7 @@
-import 'package:find_transportes/Ajustes/SobreNos/termsOfUse.dart';
+import 'package:find_transportes/Core/widget.dart';
 import 'package:flutter/material.dart';
 import 'privacyPolicy.dart';
-// import 'package:find_transportes/widget.dart';
+import 'package:find_transportes/Ajustes/SobreNos/termsOfUse.dart';
 
 List<String> aboutUs = ['Política de Privacidade', 'Termos de Uso'];
 
@@ -20,15 +20,47 @@ class AboutUs extends StatelessWidget {
         ),
         backgroundColor: Colors.white,
       ),
-      body: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: ListView.builder(
-              itemCount: aboutUs.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  child: ListTile(
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Obrigado por escolher nosso aplicativo!',
+              style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: defaultColor),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 10),
+            Text(
+              ' Estamos constantemente trabalhando para melhorar a experiência do usuário e oferecer serviços de alta qualidade. Suas sugestões e comentários são incrivelmente importantes para nós.',
+              style: TextStyle(fontSize: 18, color: Colors.grey[800]),
+              textAlign: TextAlign.justify,
+            ),
+            const SizedBox(height: 20),
+            Text(
+              ' Se você tiver qualquer sugestão, ideia para melhorias ou até mesmo críticas construtivas, não hesite em compartilhá-las conosco no email a seguir.',
+              style: TextStyle(fontSize: 18, color: Colors.grey[800]),
+              textAlign: TextAlign.justify,
+            ),
+            const SizedBox(height: 10),
+            Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  ' Email para contato: appboarota@gmail.com',
+                  style: TextStyle(fontSize: 18, color: Colors.grey[800]),
+                )),
+            const SizedBox(height: 60),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: aboutUs.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
                       onTap: () {
                         if (index == 0) {
                           Navigator.of(context).push(MaterialPageRoute(
@@ -42,46 +74,27 @@ class AboutUs extends StatelessWidget {
                         aboutUs[index],
                         style: const TextStyle(color: Colors.black54),
                       ),
-                      contentPadding: const EdgeInsets.all(15)),
-                );
-              },
-            ),
-          ),
-          const Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Divider(),
-                Column(
-                  children: [
-                    SizedBox(height: 5,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.copyright_rounded,
-                          color: Colors.black38,
-                        ),
-                        Text(' Boa Rota',
-                            style: TextStyle(
-                              fontSize: 22,
-                              color: Colors.black38,
-                            )),
-                        Text(
-                          ' - 2023',
-                          style: TextStyle(
-                            fontSize: 22,
-                            color: Colors.black38,
-                          ),
-                        ),
-                      ],
+                      contentPadding: const EdgeInsets.all(15),
                     ),
-                  ],
-                ),
-              ],
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+            const Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Text(
+                  'Boa Rota - 2023',
+                  style: TextStyle(
+                    fontSize: 22,
+                    color: Colors.black38,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

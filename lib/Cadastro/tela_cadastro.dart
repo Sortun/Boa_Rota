@@ -11,13 +11,6 @@ TextEditingController txtNomeCadastro = TextEditingController();
 TextEditingController txtEmailCadastro = TextEditingController();
 TextEditingController txtSenhaCadastro = TextEditingController();
 
-void main() {
-  runApp(const MaterialApp(
-    title: 'Cadastro App',
-    home: Cadastro(),
-    debugShowCheckedModeBanner: false,
-  ));
-}
 
 class Cadastro extends StatefulWidget {
   const Cadastro({Key? key}) : super(key: key);
@@ -27,7 +20,7 @@ class Cadastro extends StatefulWidget {
 }
 
 class _CadastroState extends State<Cadastro> {
-final AuthService _authService = AuthService();
+  final AuthService _authService = AuthService();
 
   void _showAlertDialog() {
     CustomDialog.show(context);
@@ -55,14 +48,12 @@ final AuthService _authService = AuthService();
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                  
                     const SizedBox(height: 150),
-                    Text("Cadastro",
-                        style: defaultTitle),
+                    Text("Cadastro", style: defaultTitle),
                     const SizedBox(height: 50),
                     TextFormField(
                         controller: txtNomeCadastro,
-                        cursorColor: betaColor,
+                        cursorColor: defaultColor,
                         keyboardType: TextInputType.text,
                         maxLength: 30,
                         validator: (String? value) {
@@ -74,7 +65,7 @@ final AuthService _authService = AuthService();
                             TextfildCadastro.copyWith(labelText: "Nome")),
                     TextFormField(
                         controller: txtEmailCadastro,
-                        cursorColor: betaColor,
+                        cursorColor: defaultColor,
                         maxLength: 35,
                         keyboardType: TextInputType.emailAddress,
                         validator: (String? value) {
@@ -89,7 +80,7 @@ final AuthService _authService = AuthService();
                         maxLength: 10,
                         keyboardType: TextInputType.text,
                         obscureText: senhaVisivel,
-                        cursorColor: betaColor,
+                        cursorColor: defaultColor,
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
                             return 'Senha Obrigatória';
@@ -119,22 +110,24 @@ final AuthService _authService = AuthService();
                               style: defaultButtom,
                               onPressed: !formValid
                                   ? null
-                                  : () async{
+                                  : () async {
                                       _formCadastro.currentState?.validate() ??
                                           false;
-                                      final regSucesso =
-                                          await registeronFirebase();
-                                      if (regSucesso) {
-                                        _showAlertDialog();
+
+                                      final acceptedTerms =
+                                          await CustomDialog.show(context);
+                                      if (acceptedTerms) {
+                                        // Se os termos foram aceitos, prosseguir com o cadastro
+                                        await registeronFirebase();
                                       }
                                     },
-                                    
                               child: const Text("Cadastrar"));
                         }),
                     const SizedBox(height: 20),
                     Row(
                       children: [
-                        const Text("Ja possui uma Conta? ", style: TextStyle(fontSize: 16),
+                        const Text("Ja possui uma Conta? ",
+                            style: TextStyle(fontSize: 16),
                             textAlign: TextAlign.center),
                         GestureDetector(
                           onTap: () {
@@ -160,7 +153,8 @@ final AuthService _authService = AuthService();
             ],
           ),
         )));
-}
+  }
+
   Future<bool> registeronFirebase() async {
     String nome = txtNomeCadastro.text;
     String email = txtEmailCadastro.text;
@@ -173,6 +167,12 @@ final AuthService _authService = AuthService();
       showSnackbar(context: context, texto: value.errorMessage!);
       return false;
     } else {
+      Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const Login(),
+      ),
+    );
       showSnackbar(
           context: context, texto: "Cadastro feito com sucesso", isErro: false);
       cleaner();

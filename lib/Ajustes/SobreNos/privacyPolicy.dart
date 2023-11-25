@@ -101,7 +101,7 @@ class PrivacyPolicy extends StatelessWidget {
               ),
               Text(
                 style: defaultText,
-                "  Se você tiver alguma dúvida ou preocupação sobre esta Política de Privacidade ou o tratamento de seus dados pessoais, entre em contato conosco pelo e-mail appBoarota@gmail.com.",
+                "  Se você tiver alguma dúvida ou preocupação sobre esta Política de Privacidade ou o tratamento de seus dados pessoais, entre em contato conosco pelo e-mail appboarota@gmail.com.",
               ),
               const SizedBox(height: 10),
               const Divider(),
