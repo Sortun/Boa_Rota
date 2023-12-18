@@ -1,5 +1,5 @@
 import 'package:find_transportes/Core/widget.dart';
-import 'package:find_transportes/Mapa/permissions.dart';
+import 'package:find_transportes/Core/permissions.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -77,7 +77,7 @@ class _MapaRotaState extends State<MapaRota> {
             compassEnabled: false,
             zoomControlsEnabled: false,
             myLocationEnabled: true,
-            myLocationButtonEnabled: true,
+            myLocationButtonEnabled: false,
             markers: widget.markers,
             polylines: polylines,
           ),
@@ -116,7 +116,7 @@ class _MapaRotaState extends State<MapaRota> {
                     children: [
                       Text(
                         widget.linha,
-                        style: const TextStyle(fontSize: 20),
+                        style: const TextStyle(fontSize: 25),
                       ),
                       Container(
                           decoration: const BoxDecoration(

@@ -1,7 +1,7 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:find_transportes/Firebase/firebase_options.dart';
-import 'package:find_transportes/Mapa/loadingScreen.dart';
+import 'package:find_transportes/Core/loadingScreen.dart';
 import 'package:find_transportes/tela_login.dart';
 import 'package:find_transportes/Core/widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';

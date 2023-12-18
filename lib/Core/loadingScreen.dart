@@ -1,7 +1,7 @@
 
 import 'package:find_transportes/Core/widget.dart';
+import 'package:find_transportes/Rotas/rotas.dart';
 import 'package:flutter/material.dart';
-import 'package:find_transportes/Mapa/mapa.dart';
 
 
 class LoadingScreen extends StatelessWidget {
@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     await Future.delayed(const Duration(seconds: 6));
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const Mapa()),
+      MaterialPageRoute(builder: (context) => const Horarios()),
     );
   }
   

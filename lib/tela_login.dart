@@ -1,7 +1,7 @@
 // ignore_for_file: body_might_complete_normally_nullable
 
 import 'package:find_transportes/Cadastro/tela_cadastro.dart';
-import 'package:find_transportes/Mapa/loadingScreen.dart';
+import 'package:find_transportes/Core/loadingScreen.dart';
 import 'package:find_transportes/Core/my_snackbar.dart';
 import 'package:find_transportes/Core/widget.dart';
 import 'package:flutter/material.dart';

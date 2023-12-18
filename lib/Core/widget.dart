@@ -3,12 +3,17 @@
 import 'package:flutter/material.dart';
 
 Color FundoApp = const Color.fromARGB(234, 255, 255, 255);
-Color defaultColor = const Color.fromARGB(234, 102, 227, 175);
+Color defaultColor = const Color.fromARGB(234, 89, 198, 153);
+/*cor nova #60BE9A*/
+
+/*cor antiga #7BE1B9
+Color defaultColor = const Color.fromARGB(234, 102, 227, 175);*/
+
 Color betaColor = Colors.blue;
 
 ButtonStyle defaultButtom = ElevatedButton.styleFrom(
     minimumSize: const Size(double.infinity, 50),
-    backgroundColor: const Color.fromARGB(234, 118, 238, 188),
+    backgroundColor: defaultColor,
     foregroundColor: const Color.fromARGB(255, 255, 255, 255),
     textStyle: const TextStyle(
       fontWeight: FontWeight.bold,
@@ -45,15 +50,18 @@ ButtonStyle botaoPadrao = ElevatedButton.styleFrom(
 
 //Search fild
 InputDecoration CampoBusca = const InputDecoration(
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(5.0)),
-    ),
-    focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.black),
-        borderRadius: BorderRadius.all(Radius.circular(5.0))),
-    fillColor: Colors.white,
+  enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.white, width: 2.0),
+        borderRadius: BorderRadius.all(Radius.circular(50.0)),
+  ),
+    focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.white, width: 2.0),
+        borderRadius: BorderRadius.all(Radius.circular(50.0))),
     hintText: "Pesquisar Rota",
-    filled: true);
+      hintStyle: TextStyle(color: Colors.white,fontSize: 18), 
+ labelStyle: TextStyle(color: Colors.white),
+
+    );
 
 //NavBar App
 class CustomBottomNavigationBar extends StatelessWidget {
@@ -74,26 +82,26 @@ class CustomBottomNavigationBar extends StatelessWidget {
       child: BottomNavigationBar(
         selectedItemColor: defaultColor,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-        items: const [
+        items: const [/*
           BottomNavigationBarItem(
             label: "Navegar",
             icon: Icon(
               Icons.location_on,
               size: 35,
             ),
-          ),
+          ),*/
           BottomNavigationBarItem(
-            label: "Itinerários",
+            label: "Viajar",
             icon: Icon(
-              Icons.map_outlined,
-              size: 35,
+              Icons.directions_bus_sharp,
+              size: 40,
             ),
           ),
           BottomNavigationBarItem(
             label: "Ajustes",
             icon: Icon(
               Icons.settings,
-              size: 35,
+              size: 40,
             ),
           ),
         ],

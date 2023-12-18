@@ -1,10 +1,9 @@
 // ignore_for_file: avoid_print
 
-import 'package:find_transportes/Rotas/listRotas.dart';
-import 'package:find_transportes/Mapa/permissions.dart';
+import 'package:find_transportes/Rotas/rotas.dart';
+import 'package:find_transportes/Core/permissions.dart';
 //import 'package:find_transportes/Content/desenho_linha.dart';
 import 'package:find_transportes/Content/markers.dart';
-import 'package:find_transportes/Ajustes/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:find_transportes/Core/widget.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -48,17 +47,22 @@ class _MyHomePageState extends State<MyHomePage> {
     mapController = controller;
   }
 
+
   @override
   void initState() {
     super.initState();
+    _callMarkers();
     _updateCameraLocation();
+  }
+
+  void _callMarkers() async {
+    await determinePosition();
+    setState(() {});
   }
 
   void _updateCameraLocation() async {
     Position position = await determinePosition();
-    setState(() {
-      _currentPosition = position;
-    });
+    setState(() {});
     _updateCameraPosition(position.latitude, position.longitude);
   }
 
@@ -110,21 +114,52 @@ class _MyHomePageState extends State<MyHomePage> {
                   size: 30,
                 ),
               )),
-          CustomBottomNavigationBar(
-              currentIndex: 0,
-              onTap: (index) {
-                if (index == 1) {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Horarios()));
-                } else if (index == 2) {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SettingsPage()));
-                }
-              }),
+      Positioned(
+            bottom: 0,
+            right: 0,
+            left: 0,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+              child: Container(
+                height: 70,
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 3, left: 20, right: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                     const Text(
+                        "Jaú - SP",
+                        style: TextStyle(fontSize: 25),
+                      ),
+                      Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.white60,
+                          ),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Horarios()));
+                            },
+                            child: Text(
+                              "Voltar",
+                              style: TextStyle(
+                                  color: defaultColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            ),
+                          )),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );

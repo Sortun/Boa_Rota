@@ -1,8 +1,7 @@
 import 'package:find_transportes/Ajustes/SobreNos/aboutUs.dart';
 import 'package:find_transportes/Core/widget.dart';
 import 'package:find_transportes/Firebase/authFunctions.dart';
-import 'package:find_transportes/Rotas/listRotas.dart';
-import 'package:find_transportes/Mapa/mapa.dart';
+import 'package:find_transportes/Rotas/rotas.dart';
 import 'package:find_transportes/tela_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -70,34 +69,40 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                Row(
-  children: [
-    const Icon(
-      Icons.account_circle_rounded,
-      size: 110,
-      color: Colors.white,
-    ),
-    const SizedBox(width: 10),
-    Align(
-      alignment: Alignment.centerLeft,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start, 
-        children: [
-          const SizedBox(height: 5,),
-          Text(
-            'Olá, $userName'.toUpperCase(),
-            style: const TextStyle(fontSize: 35, color: Colors.white),
-          ),
-          Text(
-            ' $userEmail',
-            style: const TextStyle(fontSize: 20, color: Color.fromARGB(226, 255, 255, 255),),
-          ),
-        ],
-      ),
-    ),
-  ],
-)
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.account_circle_rounded,
+                        size: 110,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(width: 10),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              'Olá, $userName'.toUpperCase(),
+                              style: const TextStyle(
+                                  fontSize: 35, color: Colors.white),
+                            ),
+                            Text(
+                              ' $userEmail',
+                              style: const TextStyle(
+                                fontSize: 20,
+                                color: Color.fromARGB(226, 255, 255, 255),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
@@ -110,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     return Card(
                       child: ListTile(
                           onTap: () async {
-                              if (index == 0) {
+                            if (index == 0) {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
                                       const AboutUs())); //about
@@ -138,12 +143,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
         CustomBottomNavigationBar(
-            currentIndex: 2,
+            currentIndex: 1,
             onTap: (index) {
               if (index == 0) {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const Mapa()));
-              } else if (index == 1) {
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => const Horarios()));
               }

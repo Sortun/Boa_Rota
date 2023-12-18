@@ -15,7 +15,7 @@ class HorarioAlertDialog extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: AlertDialog(
-        title: const Text('Itinerários'),
+        title: const Text('Itinerários', textAlign: TextAlign.center,),
         content: SizedBox(
           width: 300, // Defina o tamanho desejado
           height: 500,
